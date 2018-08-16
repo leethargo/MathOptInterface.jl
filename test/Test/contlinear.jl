@@ -89,8 +89,10 @@
               (MOI.ScalarAffineFunction{Float64}, MOI.Interval{Float64})    => [-1]),
          (mock::MOIU.MockOptimizer) -> MOIU.mock_optimize!(mock, [2.5, 2.5],
               (MOI.ScalarAffineFunction{Float64}, MOI.Interval{Float64})    => [1]),
-         (mock::MOIU.MockOptimizer) -> MOIU.mock_optimize!(mock, [1.0, 1.0]),
-         (mock::MOIU.MockOptimizer) -> MOIU.mock_optimize!(mock, [6.0, 6.0]))
+         (mock::MOIU.MockOptimizer) -> MOIU.mock_optimize!(mock, [1.0, 1.0],
+              (MOI.ScalarAffineFunction{Float64}, MOI.Interval{Float64})    => [1]),
+         (mock::MOIU.MockOptimizer) -> MOIU.mock_optimize!(mock, [6.0, 6.0],
+              (MOI.ScalarAffineFunction{Float64}, MOI.Interval{Float64})    => [-1]))
     MOIT.linear10test(mock, config)
     MOIU.set_mock_optimize!(mock,
          (mock::MOIU.MockOptimizer) -> MOIU.mock_optimize!(mock, [1.0, 1.0]),
@@ -122,6 +124,6 @@
     mock.eval_variable_constraint_dual = true
     MOIU.set_mock_optimize!(mock,
         (mock::MOIU.MockOptimizer) -> MOIU.mock_optimize!(mock, [0.0],
-             (MOI.VectorAffineFunction{Float64}, MOI.Zeros) => [0.0, 0.0]))
+             (MOI.VectorAffineFunction{Float64}, MOI.Zeros) => [[0.0, 0.0]]))
     MOIT.linear15test(mock, config)
 end

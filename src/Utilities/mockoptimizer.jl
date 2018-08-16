@@ -32,6 +32,8 @@ mutable struct MockOptimizer{MT<:MOI.ModelLike} <: MOI.AbstractOptimizer
     # `VariablePrimal`. See `get_fallback`.
     eval_objective_value::Bool
     objectivevalue::Float64
+    # Computes `ObjectiveBound` using `get_fallback`
+    eval_objective_bound::Bool
     objectivebound::Float64  # set this using MOI.set!(model, MOI.ObjectiveBound(), value)
     primalstatus::MOI.ResultStatusCode
     dualstatus::MOI.ResultStatusCode
@@ -52,6 +54,7 @@ xor_variables(f) = mapvariables(xor_index, f)
 
 function MockOptimizer(inner_model::MOI.ModelLike; needsallocateload=false,
                        eval_objective_value=true,
+                       eval_objective_bound=true,
                        eval_variable_constraint_dual=true)
     return MockOptimizer(inner_model,
                          0,
@@ -70,6 +73,7 @@ function MockOptimizer(inner_model::MOI.ModelLike; needsallocateload=false,
                          0,
                          eval_objective_value,
                          NaN,
+                         eval_objective_bound,
                          NaN,
                          MOI.UnknownResultStatus,
                          MOI.UnknownResultStatus,
@@ -135,6 +139,13 @@ MOI.set!(mock::MockOptimizer, ::MOI.ConstraintDual, idx::MOI.ConstraintIndex, va
 MOI.canget(mock::MockOptimizer, ::MOI.ResultCount) = mock.solved
 MOI.canget(mock::MockOptimizer, ::MOI.TerminationStatus) = mock.solved
 MOI.canget(mock::MockOptimizer, ::MOI.ObjectiveValue) = mock.solved # TODO: may want to simulate false
+function MOI.canget(mock::MockOptimizer, ::MOI.ObjectiveBound)
+    if mock.eval_objective_bound
+        mock.solved
+    else
+        !isnan(mock.objectivebound)
+    end
+end
 MOI.canget(mock::MockOptimizer, ::MOI.PrimalStatus) = mock.hasprimal && (mock.resultcount > 0)
 MOI.canget(mock::MockOptimizer, ::MOI.DualStatus) = mock.hasdual && (mock.resultcount > 0)
 MOI.canget(mock::MockOptimizer, ::MockModelAttribute) = true
@@ -198,9 +209,14 @@ function MOI.get(mock::MockOptimizer, attr::MOI.ConstraintDual,
 end
 MOI.get(mock::MockOptimizer, ::MockConstraintAttribute, idx::MOI.ConstraintIndex) = mock.conattribute[xor_index(idx)]
 
+function MOI.get(mock::MockOptimizer, attr::MOI.ObjectiveBound)
+    if mock.eval_objective_bound
+        return get_fallback(mock, attr, Float64)
+    else
+        return mock.objectivebound
+    end
+end
 MOI.supports(mock::MockOptimizer, ::MOI.ObjectiveBound) = true
-MOI.canget(mock::MockOptimizer, ::MOI.ObjectiveBound) = !isnan(mock.objectivebound)
-MOI.get(mock::MockOptimizer, ::MOI.ObjectiveBound) = mock.objectivebound
 function MOI.set!(mock::MockOptimizer, ::MOI.ObjectiveBound, value::Float64)
     mock.objectivebound = value
 end

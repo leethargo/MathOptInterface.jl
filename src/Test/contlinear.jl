@@ -79,6 +79,8 @@ function linear1test(model::MOI.ModelLike, config::TestConfig)
 
         @test MOI.canget(model, MOI.ObjectiveValue())
         @test MOI.get(model, MOI.ObjectiveValue()) ≈ -1 atol=atol rtol=rtol
+        @test MOI.canget(model, MOI.ObjectiveBound())
+        @test MOI.get(model, MOI.ObjectiveBound()) ≈ -1 atol=atol rtol=rtol
 
         @test MOI.canget(model, MOI.VariablePrimal(), MOI.VariableIndex)
         @test MOI.get(model, MOI.VariablePrimal(), v) ≈ [1, 0] atol=atol rtol=rtol
@@ -124,6 +126,8 @@ function linear1test(model::MOI.ModelLike, config::TestConfig)
 
         @test MOI.canget(model, MOI.ObjectiveValue())
         @test MOI.get(model, MOI.ObjectiveValue()) ≈ 1 atol=atol rtol=rtol
+        @test MOI.canget(model, MOI.ObjectiveBound())
+        @test MOI.get(model, MOI.ObjectiveBound()) ≈ 1 atol=atol rtol=rtol
 
         @test MOI.canget(model, MOI.VariablePrimal(), MOI.VariableIndex)
         @test MOI.get(model, MOI.VariablePrimal(), v) ≈ [1, 0] atol=atol rtol=rtol
@@ -192,6 +196,8 @@ function linear1test(model::MOI.ModelLike, config::TestConfig)
 
         @test MOI.canget(model, MOI.ObjectiveValue())
         @test MOI.get(model, MOI.ObjectiveValue()) ≈ 2 atol=atol rtol=rtol
+        @test MOI.canget(model, MOI.ObjectiveBound())
+        @test MOI.get(model, MOI.ObjectiveBound()) ≈ 2 atol=atol rtol=rtol
 
         @test MOI.canget(model, MOI.VariablePrimal(), MOI.VariableIndex)
         @test MOI.get(model, MOI.VariablePrimal(), v) ≈ [0, 0, 1] atol=atol rtol=rtol
@@ -236,6 +242,8 @@ function linear1test(model::MOI.ModelLike, config::TestConfig)
 
         @test MOI.canget(model, MOI.ObjectiveValue())
         @test MOI.get(model, MOI.ObjectiveValue()) ≈ 3 atol=atol rtol=rtol
+        @test MOI.canget(model, MOI.ObjectiveBound())
+        @test MOI.get(model, MOI.ObjectiveBound()) ≈ 3 atol=atol rtol=rtol
 
         @test MOI.canget(model, MOI.VariablePrimal(), MOI.VariableIndex)
         @test MOI.get(model, MOI.VariablePrimal(), v) ≈ [-1, 0, 2] atol=atol rtol=rtol
@@ -364,6 +372,8 @@ function linear1test(model::MOI.ModelLike, config::TestConfig)
 
         @test MOI.canget(model, MOI.ObjectiveValue())
         @test MOI.get(model, MOI.ObjectiveValue()) ≈ 3 atol=atol rtol=rtol
+        @test MOI.canget(model, MOI.ObjectiveBound())
+        @test MOI.get(model, MOI.ObjectiveBound()) ≈ 3 atol=atol rtol=rtol
 
         @test MOI.canget(model, MOI.VariablePrimal(), MOI.VariableIndex)
         @test MOI.get(model, MOI.VariablePrimal(), v) ≈ [1, 1, 0] atol=atol rtol=rtol
@@ -472,6 +482,8 @@ function linear2test(model::MOI.ModelLike, config::TestConfig)
 
         @test MOI.canget(model, MOI.ObjectiveValue())
         @test MOI.get(model, MOI.ObjectiveValue()) ≈ -1 atol=atol rtol=rtol
+        @test MOI.canget(model, MOI.ObjectiveBound())
+        @test MOI.get(model, MOI.ObjectiveBound()) ≈ -1 atol=atol rtol=rtol
 
         @test MOI.canget(model, MOI.VariablePrimal(), MOI.VariableIndex)
         @test MOI.get(model, MOI.VariablePrimal(), x) ≈ 1 atol=atol rtol=rtol
@@ -1205,6 +1217,7 @@ function linear10test(model::MOI.ModelLike, config::TestConfig)
         @test MOI.get(model, MOI.TerminationStatus()) == MOI.Success
         @test MOI.get(model, MOI.PrimalStatus()) == MOI.FeasiblePoint
         @test MOI.get(model, MOI.ObjectiveValue()) ≈ 10.0 atol=atol rtol=rtol
+        @test MOI.get(model, MOI.ObjectiveBound()) ≈ 10.0 atol=atol rtol=rtol
         @test MOI.canget(model, MOI.ConstraintPrimal(), typeof(c))
         @test MOI.get(model, MOI.ConstraintPrimal(), c) ≈ 10 atol=atol rtol=rtol
 
@@ -1226,6 +1239,7 @@ function linear10test(model::MOI.ModelLike, config::TestConfig)
         @test MOI.get(model, MOI.TerminationStatus()) == MOI.Success
         @test MOI.get(model, MOI.PrimalStatus()) == MOI.FeasiblePoint
         @test MOI.get(model, MOI.ObjectiveValue()) ≈ 5.0 atol=atol rtol=rtol
+        @test MOI.get(model, MOI.ObjectiveBound()) ≈ 5.0 atol=atol rtol=rtol
         @test MOI.canget(model, MOI.ConstraintPrimal(), typeof(c))
         @test MOI.get(model, MOI.ConstraintPrimal(), c) ≈ 5 atol=atol rtol=rtol
 
@@ -1252,8 +1266,17 @@ function linear10test(model::MOI.ModelLike, config::TestConfig)
         @test MOI.get(model, MOI.TerminationStatus()) == MOI.Success
         @test MOI.get(model, MOI.PrimalStatus()) == MOI.FeasiblePoint
         @test MOI.get(model, MOI.ObjectiveValue()) ≈ 2.0 atol=atol rtol=rtol
+        @test MOI.get(model, MOI.ObjectiveBound()) ≈ 2.0 atol=atol rtol=rtol
         @test MOI.canget(model, MOI.ConstraintPrimal(), typeof(c))
         @test MOI.get(model, MOI.ConstraintPrimal(), c) ≈ 2 atol=atol rtol=rtol
+
+        if config.duals
+            @test MOI.get(model, MOI.ResultCount()) >= 1
+            @test MOI.canget(model, MOI.DualStatus())
+            @test MOI.get(model, MOI.DualStatus()) == MOI.FeasiblePoint
+            @test MOI.canget(model, MOI.ConstraintDual(), typeof(c))
+            @test MOI.get(model, MOI.ConstraintDual(), c) ≈ 1 atol=atol rtol=rtol
+        end
     end
 
     MOI.set!(model, MOI.ObjectiveFunction{MOI.ScalarAffineFunction{Float64}}(), MOI.ScalarAffineFunction(MOI.ScalarAffineTerm.([1.0, 1.0], [x, y]), 0.0))
@@ -1265,8 +1288,17 @@ function linear10test(model::MOI.ModelLike, config::TestConfig)
         @test MOI.get(model, MOI.TerminationStatus()) == MOI.Success
         @test MOI.get(model, MOI.PrimalStatus()) == MOI.FeasiblePoint
         @test MOI.get(model, MOI.ObjectiveValue()) ≈ 12.0 atol=atol rtol=rtol
+        @test MOI.get(model, MOI.ObjectiveBound()) ≈ 12.0 atol=atol rtol=rtol
         @test MOI.canget(model, MOI.ConstraintPrimal(), typeof(c))
         @test MOI.get(model, MOI.ConstraintPrimal(), c) ≈ 12 atol=atol rtol=rtol
+
+        if config.duals
+            @test MOI.get(model, MOI.ResultCount()) >= 1
+            @test MOI.canget(model, MOI.DualStatus())
+            @test MOI.get(model, MOI.DualStatus()) == MOI.FeasiblePoint
+            @test MOI.canget(model, MOI.ConstraintDual(), typeof(c))
+            @test MOI.get(model, MOI.ConstraintDual(), c) ≈ -1 atol=atol rtol=rtol
+        end
     end
 end
 
@@ -1470,6 +1502,8 @@ function linear14test(model::MOI.ModelLike, config::TestConfig)
 
         @test MOI.canget(model, MOI.ObjectiveValue())
         @test MOI.get(model, MOI.ObjectiveValue()) ≈ 8 atol=atol rtol=rtol
+        @test MOI.canget(model, MOI.ObjectiveBound())
+        @test MOI.get(model, MOI.ObjectiveBound()) ≈ 8 atol=atol rtol=rtol
 
         @test MOI.canget(model, MOI.VariablePrimal(), MOI.VariableIndex)
         @test MOI.get(model, MOI.VariablePrimal(), x) ≈ 0 atol=atol rtol=rtol
@@ -1518,6 +1552,8 @@ function linear14test(model::MOI.ModelLike, config::TestConfig)
 
         @test MOI.canget(model, MOI.ObjectiveValue())
         @test MOI.get(model, MOI.ObjectiveValue()) ≈ 6 atol=atol rtol=rtol
+        @test MOI.canget(model, MOI.ObjectiveBound())
+        @test MOI.get(model, MOI.ObjectiveBound()) ≈ 6 atol=atol rtol=rtol
 
         @test MOI.canget(model, MOI.VariablePrimal(), MOI.VariableIndex)
         @test MOI.get(model, MOI.VariablePrimal(), y) ≈ 1 atol=atol rtol=rtol
@@ -1582,6 +1618,8 @@ function linear15test(model::MOI.ModelLike, config::TestConfig)
 
         @test MOI.canget(model, MOI.ObjectiveValue())
         @test MOI.get(model, MOI.ObjectiveValue()) ≈ 0 atol=atol rtol=rtol
+        @test MOI.canget(model, MOI.ObjectiveBound())
+        @test MOI.get(model, MOI.ObjectiveBound()) ≈ 0 atol=atol rtol=rtol
 
         @test MOI.canget(model, MOI.VariablePrimal(), MOI.VariableIndex)
         @test MOI.get(model, MOI.VariablePrimal(), x[1]) ≈ 0 atol=atol rtol=rtol

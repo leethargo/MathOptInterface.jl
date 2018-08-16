@@ -196,8 +196,12 @@ end
              (mock::MOIU.MockOptimizer) -> MOIU.mock_optimize!(mock, [2.5, 2.5],
                   (MOI.ScalarAffineFunction{Float64}, MOI.GreaterThan{Float64}) => [1],
                   (MOI.ScalarAffineFunction{Float64}, MOI.LessThan{Float64})    => [0]),
-             (mock::MOIU.MockOptimizer) -> MOIU.mock_optimize!(mock, [1.0, 1.0]),
-             (mock::MOIU.MockOptimizer) -> MOIU.mock_optimize!(mock, [6.0, 6.0]))
+             (mock::MOIU.MockOptimizer) -> MOIU.mock_optimize!(mock, [1.0, 1.0],
+                  (MOI.ScalarAffineFunction{Float64}, MOI.GreaterThan{Float64}) => [1],
+                  (MOI.ScalarAffineFunction{Float64}, MOI.LessThan{Float64})    => [0]),
+             (mock::MOIU.MockOptimizer) -> MOIU.mock_optimize!(mock, [6.0, 6.0],
+                  (MOI.ScalarAffineFunction{Float64}, MOI.GreaterThan{Float64}) => [0],
+                  (MOI.ScalarAffineFunction{Float64}, MOI.LessThan{Float64})    => [-1]))
         MOIT.linear10test(bridgedmock, config)
         ci = first(MOI.get(bridgedmock, MOI.ListOfConstraintIndices{MOI.ScalarAffineFunction{Float64}, MOI.Interval{Float64}}()))
         newf = MOI.ScalarAffineFunction(MOI.ScalarAffineTerm.([1.0, -1.0], MOI.get(bridgedmock, MOI.ListOfVariableIndices())), 0.0)

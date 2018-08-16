@@ -59,6 +59,8 @@ function _lin1test(model::MOI.ModelLike, config::TestConfig, vecofvars::Bool)
 
         @test MOI.canget(model, MOI.ObjectiveValue())
         @test MOI.get(model, MOI.ObjectiveValue()) ≈ -11 atol=atol rtol=rtol
+        @test MOI.canget(model, MOI.ObjectiveBound())
+        @test MOI.get(model, MOI.ObjectiveBound()) ≈ -11 atol=atol rtol=rtol
 
         @test MOI.canget(model, MOI.VariablePrimal(), MOI.VariableIndex)
         @test MOI.get(model, MOI.VariablePrimal(), v) ≈ [1, 0, 2] atol=atol rtol=rtol
@@ -162,6 +164,8 @@ function _lin2test(model::MOI.ModelLike, config::TestConfig, vecofvars::Bool)
 
         @test MOI.canget(model, MOI.ObjectiveValue())
         @test MOI.get(model, MOI.ObjectiveValue()) ≈ -82 atol=atol rtol=rtol
+        @test MOI.canget(model, MOI.ObjectiveBound())
+        @test MOI.get(model, MOI.ObjectiveBound()) ≈ -82 atol=atol rtol=rtol
 
         @test MOI.canget(model, MOI.VariablePrimal(), MOI.VariableIndex)
         @test MOI.get(model, MOI.VariablePrimal(), x) ≈ -4 atol=atol rtol=rtol
@@ -355,6 +359,8 @@ function _soc1test(model::MOI.ModelLike, config::TestConfig, vecofvars::Bool)
 
         @test MOI.canget(model, MOI.ObjectiveValue())
         @test MOI.get(model, MOI.ObjectiveValue()) ≈ √2 atol=atol rtol=rtol
+        @test MOI.canget(model, MOI.ObjectiveBound())
+        @test MOI.get(model, MOI.ObjectiveBound()) ≈ √2 atol=atol rtol=rtol
 
         @test MOI.canget(model, MOI.VariablePrimal(), MOI.VariableIndex)
         @test MOI.get(model, MOI.VariablePrimal(), x) ≈ 1 atol=atol rtol=rtol
@@ -438,6 +444,8 @@ function _soc2test(model::MOI.ModelLike, config::TestConfig, nonneg::Bool)
 
         @test MOI.canget(model, MOI.ObjectiveValue())
         @test MOI.get(model, MOI.ObjectiveValue()) ≈ -1/√2 atol=atol rtol=rtol
+        @test MOI.canget(model, MOI.ObjectiveBound())
+        @test MOI.get(model, MOI.ObjectiveBound()) ≈ -1/√2 atol=atol rtol=rtol
 
         @test MOI.get(model, MOI.VariablePrimal(), x) ≈ -1/√2 atol=atol rtol=rtol
         @test MOI.get(model, MOI.VariablePrimal(), y) ≈ 1/√2 atol=atol rtol=rtol
@@ -564,6 +572,8 @@ function soc4test(model::MOI.ModelLike, config::TestConfig)
 
         @test MOI.canget(model, MOI.ObjectiveValue())
         @test MOI.get(model, MOI.ObjectiveValue()) ≈ -√5 atol=atol rtol=rtol
+        @test MOI.canget(model, MOI.ObjectiveBound())
+        @test MOI.get(model, MOI.ObjectiveBound()) ≈ -√5 atol=atol rtol=rtol
 
         @test MOI.canget(model, MOI.VariablePrimal(), MOI.VariableIndex)
         @test MOI.get(model, MOI.VariablePrimal(), x) ≈ [1.0, 2/√5, 1/√5, 2/√5, 1/√5] atol=atol rtol=rtol
@@ -652,6 +662,8 @@ function _rotatedsoc1test(model::MOI.ModelLike, config::TestConfig, abvars::Bool
 
         @test MOI.canget(model, MOI.ObjectiveValue())
         @test MOI.get(model, MOI.ObjectiveValue()) ≈ √2 atol=atol rtol=rtol
+        @test MOI.canget(model, MOI.ObjectiveBound())
+        @test MOI.get(model, MOI.ObjectiveBound()) ≈ √2 atol=atol rtol=rtol
 
         if abvars
             @test MOI.canget(model, MOI.VariablePrimal(), MOI.VariableIndex)
@@ -833,6 +845,8 @@ function rotatedsoc3test(model::MOI.ModelLike, config::TestConfig; n=2, ub=3.0)
 
         @test MOI.canget(model, MOI.ObjectiveValue())
         @test MOI.get(model, MOI.ObjectiveValue()) ≈ √ub atol=atol rtol=rtol
+        @test MOI.canget(model, MOI.ObjectiveBound())
+        @test MOI.get(model, MOI.ObjectiveBound()) ≈ √ub atol=atol rtol=rtol
 
         @test MOI.canget(model, MOI.VariablePrimal(), MOI.VariableIndex)
         @test MOI.get(model, MOI.VariablePrimal(), x) ≈ [1.0; zeros(n-1)] atol=atol rtol=rtol
@@ -1023,6 +1037,9 @@ function _exp1test(model::MOI.ModelLike, config::TestConfig, vecofvars::Bool)
 
         @test MOI.canget(model, MOI.ObjectiveValue())
         @test MOI.get(model, MOI.ObjectiveValue()) ≈ 3 + 2exp(1/2) atol=atol rtol=rtol
+        @test MOI.canget(model, MOI.ObjectiveBound())
+        @test MOI.get(model, MOI.ObjectiveBound()) ≈ 3 + 2exp(1/2) atol=atol rtol=rtol
+
         @test MOI.canget(model, MOI.VariablePrimal(), MOI.VariableIndex)
         @test MOI.get(model, MOI.VariablePrimal(), v) ≈ [1., 2., 2exp(1/2)] atol=atol rtol=rtol
 
@@ -1097,6 +1114,8 @@ function exp2test(model::MOI.ModelLike, config::TestConfig)
 
         @test MOI.canget(model, MOI.ObjectiveValue())
         @test MOI.get(model, MOI.ObjectiveValue()) ≈ exp(-0.3) atol=atol rtol=rtol
+        @test MOI.canget(model, MOI.ObjectiveBound())
+        @test MOI.get(model, MOI.ObjectiveBound()) ≈ exp(-0.3) atol=atol rtol=rtol
 
         @test MOI.canget(model, MOI.VariablePrimal(), MOI.VariableIndex)
         @test MOI.get(model, MOI.VariablePrimal(), v) ≈ [0., -0.3, 0., exp(-0.3), exp(-0.3), exp(-0.3), 0., 1.0, 0.] atol=atol rtol=rtol
@@ -1178,6 +1197,8 @@ function exp3test(model::MOI.ModelLike, config::TestConfig)
 
         @test MOI.canget(model, MOI.ObjectiveValue())
         @test MOI.get(model, MOI.ObjectiveValue()) ≈ log(5) atol=atol rtol=rtol
+        @test MOI.canget(model, MOI.ObjectiveBound())
+        @test MOI.get(model, MOI.ObjectiveBound()) ≈ log(5) atol=atol rtol=rtol
 
         @test MOI.canget(model, MOI.VariablePrimal(), MOI.VariableIndex)
         @test MOI.get(model, MOI.VariablePrimal(), x) ≈ log(5) atol=atol rtol=rtol
@@ -1266,6 +1287,8 @@ function _psd0test(model::MOI.ModelLike, vecofvars::Bool, psdcone, config::TestC
 
         @test MOI.canget(model, MOI.ObjectiveValue())
         @test MOI.get(model, MOI.ObjectiveValue()) ≈ 2 atol=atol rtol=rtol
+        @test MOI.canget(model, MOI.ObjectiveBound())
+        @test MOI.get(model, MOI.ObjectiveBound()) ≈ 2 atol=atol rtol=rtol
 
         Xv = square ? ones(4) : ones(3)
         @test MOI.canget(model, MOI.VariablePrimal(), MOI.VariableIndex)
@@ -1416,6 +1439,8 @@ function _psd1test(model::MOI.ModelLike, vecofvars::Bool, psdcone, config::TestC
 
         @test MOI.canget(model, MOI.ObjectiveValue())
         @test MOI.get(model, MOI.ObjectiveValue()) ≈ obj atol=atol rtol=rtol
+        @test MOI.canget(model, MOI.ObjectiveBound())
+        @test MOI.get(model, MOI.ObjectiveBound()) ≈ obj atol=atol rtol=rtol
 
         Xv = square ? [α^2, α*β, α^2, α*β, β^2, α*β, α^2, α*β, α^2] : [α^2, α*β, β^2, α^2, α*β, α^2]
         xv = [√2*x2, x2, x2]
@@ -1606,8 +1631,8 @@ function _det1test(model::MOI.ModelLike, config::TestConfig, vecofvars::Bool, de
         @test MOI.canget(model, MOI.PrimalStatus())
         @test MOI.get(model, MOI.PrimalStatus()) == MOI.FeasiblePoint
 
-        @test MOI.canget(model, MOI.ObjectiveValue())
         expectedobjval = logdet ? 0. : 1.
+        @test MOI.canget(model, MOI.ObjectiveValue())
         @test MOI.get(model, MOI.ObjectiveValue()) ≈ expectedobjval atol=atol rtol=rtol
 
         @test MOI.canget(model, MOI.VariablePrimal(), MOI.VariableIndex)
