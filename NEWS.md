@@ -1,6 +1,13 @@
 MathOptInterface (MOI) release notes
 ====================================
 
+v0.7.0 (unreleased)
+--------------------------
+
+- Test that `MOI.TerminationStatus` is `MOI.OptimizeNotCalled` and that
+  `MOI.PrimalStatus` and `MOI.DualStatusis` are `MOI.NoSolution` before
+  `MOI.optimize!` is called.
+
 v0.6.4 (November 27, 2018)
 --------------------------
 

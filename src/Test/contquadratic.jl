@@ -39,6 +39,9 @@ function qp1test(model::MOI.ModelLike, config::TestConfig)
     end
 
     if config.solve
+        @test MOI.get(model, MOI.TerminationStatus()) == MOI.OptimizeNotCalled
+        @test MOI.get(model, MOI.PrimalStatus()) == MOI.NoSolution
+
         MOI.optimize!(model)
 
         @test MOI.get(model, MOI.TerminationStatus()) == MOI.Success
@@ -92,6 +95,9 @@ function qp2test(model::MOI.ModelLike, config::TestConfig)
     end
 
     if config.solve
+        @test MOI.get(model, MOI.TerminationStatus()) == MOI.OptimizeNotCalled
+        @test MOI.get(model, MOI.PrimalStatus()) == MOI.NoSolution
+
         MOI.optimize!(model)
 
         @test MOI.get(model, MOI.TerminationStatus()) == MOI.Success
@@ -161,6 +167,9 @@ function qp3test(model::MOI.ModelLike, config::TestConfig)
     MOI.set(model, MOI.ObjectiveSense(), MOI.MinSense)
 
     if config.solve
+        @test MOI.get(model, MOI.TerminationStatus()) == MOI.OptimizeNotCalled
+        @test MOI.get(model, MOI.PrimalStatus()) == MOI.NoSolution
+
         MOI.optimize!(model)
 
         @test MOI.get(model, MOI.TerminationStatus()) == MOI.Success
@@ -240,6 +249,9 @@ function qcp1test(model::MOI.ModelLike, config::TestConfig)
     end
 
     if config.solve
+        @test MOI.get(model, MOI.TerminationStatus()) == MOI.OptimizeNotCalled
+        @test MOI.get(model, MOI.PrimalStatus()) == MOI.NoSolution
+
         MOI.optimize!(model)
 
         @test MOI.get(model, MOI.TerminationStatus()) == MOI.Success
@@ -297,6 +309,9 @@ function qcp2test(model::MOI.ModelLike, config::TestConfig)
     end
 
     if config.solve
+        @test MOI.get(model, MOI.TerminationStatus()) == MOI.OptimizeNotCalled
+        @test MOI.get(model, MOI.PrimalStatus()) == MOI.NoSolution
+
         MOI.optimize!(model)
 
         @test MOI.get(model, MOI.TerminationStatus()) == MOI.Success
@@ -346,6 +361,9 @@ function qcp3test(model::MOI.ModelLike, config::TestConfig)
     end
 
     if config.solve
+        @test MOI.get(model, MOI.TerminationStatus()) == MOI.OptimizeNotCalled
+        @test MOI.get(model, MOI.PrimalStatus()) == MOI.NoSolution
+
         MOI.optimize!(model)
 
         @test MOI.get(model, MOI.TerminationStatus()) == MOI.Success
@@ -420,6 +438,9 @@ function socp1test(model::MOI.ModelLike, config::TestConfig)
     end
 
     if config.solve
+        @test MOI.get(model, MOI.TerminationStatus()) == MOI.OptimizeNotCalled
+        @test MOI.get(model, MOI.PrimalStatus()) == MOI.NoSolution
+
         MOI.optimize!(model)
 
         @test MOI.get(model, MOI.TerminationStatus()) == MOI.Success

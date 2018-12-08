@@ -45,6 +45,10 @@ function _lin1test(model::MOI.ModelLike, config::TestConfig, vecofvars::Bool)
     MOI.set(model, MOI.ObjectiveSense(), MOI.MinSense)
 
     if config.solve
+        @test MOI.get(model, MOI.TerminationStatus()) == MOI.OptimizeNotCalled
+        @test MOI.get(model, MOI.PrimalStatus()) == MOI.NoSolution
+        @test MOI.get(model, MOI.DualStatus()) == MOI.NoSolution
+
         MOI.optimize!(model)
 
         @test MOI.get(model, MOI.TerminationStatus()) == MOI.Success
@@ -139,6 +143,10 @@ function _lin2test(model::MOI.ModelLike, config::TestConfig, vecofvars::Bool)
     @test MOI.get(model, MOI.NumberOfConstraints{vecofvars ? MOI.VectorOfVariables : MOI.VectorAffineFunction{Float64},MOI.Nonnegatives}()) == 1
 
     if config.solve
+        @test MOI.get(model, MOI.TerminationStatus()) == MOI.OptimizeNotCalled
+        @test MOI.get(model, MOI.PrimalStatus()) == MOI.NoSolution
+        @test MOI.get(model, MOI.DualStatus()) == MOI.NoSolution
+
         MOI.optimize!(model)
 
         @test MOI.get(model, MOI.TerminationStatus()) == MOI.Success
@@ -201,6 +209,10 @@ function lin3test(model::MOI.ModelLike, config::TestConfig)
     @test MOI.get(model, MOI.NumberOfConstraints{MOI.VectorAffineFunction{Float64},MOI.Nonpositives}()) == 1
 
     if config.solve
+        @test MOI.get(model, MOI.TerminationStatus()) == MOI.OptimizeNotCalled
+        @test MOI.get(model, MOI.PrimalStatus()) == MOI.NoSolution
+        @test MOI.get(model, MOI.DualStatus()) == MOI.NoSolution
+
         MOI.optimize!(model)
 
         if config.infeas_certificates
@@ -249,6 +261,10 @@ function lin4test(model::MOI.ModelLike, config::TestConfig)
     @test MOI.get(model, MOI.NumberOfConstraints{MOI.VectorOfVariables,MOI.Nonpositives}()) == 1
 
     if config.solve
+        @test MOI.get(model, MOI.TerminationStatus()) == MOI.OptimizeNotCalled
+        @test MOI.get(model, MOI.PrimalStatus()) == MOI.NoSolution
+        @test MOI.get(model, MOI.DualStatus()) == MOI.NoSolution
+
         MOI.optimize!(model)
 
         if config.infeas_certificates
@@ -318,6 +334,10 @@ function _soc1test(model::MOI.ModelLike, config::TestConfig, vecofvars::Bool)
     @test (vecofvars ? MOI.VectorOfVariables : MOI.VectorAffineFunction{Float64},MOI.SecondOrderCone) in loc
 
     if config.solve
+        @test MOI.get(model, MOI.TerminationStatus()) == MOI.OptimizeNotCalled
+        @test MOI.get(model, MOI.PrimalStatus()) == MOI.NoSolution
+        @test MOI.get(model, MOI.DualStatus()) == MOI.NoSolution
+
         MOI.optimize!(model)
 
         @test MOI.get(model, MOI.TerminationStatus()) == MOI.Success
@@ -390,6 +410,10 @@ function _soc2test(model::MOI.ModelLike, config::TestConfig, nonneg::Bool)
     @test MOI.get(model, MOI.NumberOfConstraints{MOI.VectorAffineFunction{Float64},MOI.SecondOrderCone}()) == 1
 
     if config.solve
+        @test MOI.get(model, MOI.TerminationStatus()) == MOI.OptimizeNotCalled
+        @test MOI.get(model, MOI.PrimalStatus()) == MOI.NoSolution
+        @test MOI.get(model, MOI.DualStatus()) == MOI.NoSolution
+
         MOI.optimize!(model)
 
         @test MOI.get(model, MOI.TerminationStatus()) == MOI.Success
@@ -454,6 +478,10 @@ function soc3test(model::MOI.ModelLike, config::TestConfig)
     @test MOI.get(model, MOI.NumberOfConstraints{MOI.VectorAffineFunction{Float64},MOI.SecondOrderCone}()) == 1
 
     if config.solve
+        @test MOI.get(model, MOI.TerminationStatus()) == MOI.OptimizeNotCalled
+        @test MOI.get(model, MOI.PrimalStatus()) == MOI.NoSolution
+        @test MOI.get(model, MOI.DualStatus()) == MOI.NoSolution
+
         MOI.optimize!(model)
 
         @test MOI.get(model, MOI.TerminationStatus()) == MOI.Success
@@ -503,6 +531,10 @@ function soc4test(model::MOI.ModelLike, config::TestConfig)
     MOI.set(model, MOI.ObjectiveFunction{MOI.ScalarAffineFunction{Float64}}(), MOI.ScalarAffineFunction(MOI.ScalarAffineTerm.([0.0,-2.0,-1.0, 0.0, 0.0], x), 0.0))
     MOI.set(model, MOI.ObjectiveSense(), MOI.MinSense)
     if config.solve
+        @test MOI.get(model, MOI.TerminationStatus()) == MOI.OptimizeNotCalled
+        @test MOI.get(model, MOI.PrimalStatus()) == MOI.NoSolution
+        @test MOI.get(model, MOI.DualStatus()) == MOI.NoSolution
+
         MOI.optimize!(model)
 
         @test MOI.get(model, MOI.TerminationStatus()) == MOI.Success
@@ -582,6 +614,10 @@ function _rotatedsoc1test(model::MOI.ModelLike, config::TestConfig, abvars::Bool
     MOI.set(model, MOI.ObjectiveFunction{MOI.ScalarAffineFunction{Float64}}(), MOI.ScalarAffineFunction(MOI.ScalarAffineTerm.(1.0, x), 0.0))
     MOI.set(model, MOI.ObjectiveSense(), MOI.MaxSense)
     if config.solve
+        @test MOI.get(model, MOI.TerminationStatus()) == MOI.OptimizeNotCalled
+        @test MOI.get(model, MOI.PrimalStatus()) == MOI.NoSolution
+        @test MOI.get(model, MOI.DualStatus()) == MOI.NoSolution
+
         MOI.optimize!(model)
 
         @test MOI.get(model, MOI.TerminationStatus()) == MOI.Success
@@ -668,6 +704,10 @@ function rotatedsoc2test(model::MOI.ModelLike, config::TestConfig)
     MOI.set(model, MOI.ObjectiveFunction{MOI.ScalarAffineFunction{Float64}}(), MOI.ScalarAffineFunction(MOI.ScalarAffineTerm.(c, x), 0.0))
     MOI.set(model, MOI.ObjectiveSense(), MOI.MinSense)
     if config.solve
+        @test MOI.get(model, MOI.TerminationStatus()) == MOI.OptimizeNotCalled
+        @test MOI.get(model, MOI.PrimalStatus()) == MOI.NoSolution
+        @test MOI.get(model, MOI.DualStatus()) == MOI.NoSolution
+
         MOI.optimize!(model)
 
         @test MOI.get(model, MOI.TerminationStatus()) in [MOI.Success, MOI.InfeasibleNoResult, MOI.InfeasibleOrUnbounded]
@@ -744,6 +784,10 @@ function rotatedsoc3test(model::MOI.ModelLike, config::TestConfig; n=2, ub=3.0)
     MOI.set(model, MOI.ObjectiveSense(), MOI.MaxSense)
 
     if config.solve
+        @test MOI.get(model, MOI.TerminationStatus()) == MOI.OptimizeNotCalled
+        @test MOI.get(model, MOI.PrimalStatus()) == MOI.NoSolution
+        @test MOI.get(model, MOI.DualStatus()) == MOI.NoSolution
+
         MOI.optimize!(model)
 
         @test MOI.get(model, MOI.TerminationStatus()) == MOI.Success
@@ -836,6 +880,10 @@ function _geomean1test(model::MOI.ModelLike, config::TestConfig, vecofvars, n=3)
     MOI.set(model, MOI.ObjectiveFunction{MOI.ScalarAffineFunction{Float64}}(), MOI.ScalarAffineFunction([MOI.ScalarAffineTerm(1.0, t)], 0.0))
     MOI.set(model, MOI.ObjectiveSense(), MOI.MaxSense)
     if config.solve
+        @test MOI.get(model, MOI.TerminationStatus()) == MOI.OptimizeNotCalled
+        @test MOI.get(model, MOI.PrimalStatus()) == MOI.NoSolution
+        @test MOI.get(model, MOI.DualStatus()) == MOI.NoSolution
+
         MOI.optimize!(model)
 
         @test MOI.get(model, MOI.TerminationStatus()) == MOI.Success
@@ -898,6 +946,10 @@ function _exp1test(model::MOI.ModelLike, config::TestConfig, vecofvars::Bool)
     MOI.set(model, MOI.ObjectiveSense(), MOI.MinSense)
 
     if config.solve
+        @test MOI.get(model, MOI.TerminationStatus()) == MOI.OptimizeNotCalled
+        @test MOI.get(model, MOI.PrimalStatus()) == MOI.NoSolution
+        @test MOI.get(model, MOI.DualStatus()) == MOI.NoSolution
+
         MOI.optimize!(model)
 
         @test MOI.get(model, MOI.TerminationStatus()) == MOI.Success
@@ -961,6 +1013,10 @@ function exp2test(model::MOI.ModelLike, config::TestConfig)
     MOI.set(model, MOI.ObjectiveSense(), MOI.MinSense)
 
     if config.solve
+        @test MOI.get(model, MOI.TerminationStatus()) == MOI.OptimizeNotCalled
+        @test MOI.get(model, MOI.PrimalStatus()) == MOI.NoSolution
+        @test MOI.get(model, MOI.DualStatus()) == MOI.NoSolution
+
         MOI.optimize!(model)
 
         @test MOI.get(model, MOI.TerminationStatus()) == MOI.Success
@@ -1023,6 +1079,10 @@ function exp3test(model::MOI.ModelLike, config::TestConfig)
     MOI.set(model, MOI.ObjectiveSense(), MOI.MaxSense)
 
     if config.solve
+        @test MOI.get(model, MOI.TerminationStatus()) == MOI.OptimizeNotCalled
+        @test MOI.get(model, MOI.PrimalStatus()) == MOI.NoSolution
+        @test MOI.get(model, MOI.DualStatus()) == MOI.NoSolution
+
         MOI.optimize!(model)
 
         @test MOI.get(model, MOI.TerminationStatus()) == MOI.Success
@@ -1099,6 +1159,10 @@ function _psd0test(model::MOI.ModelLike, vecofvars::Bool, psdcone, config::TestC
     MOI.set(model, MOI.ObjectiveFunction{MOI.ScalarAffineFunction{Float64}}(), MOI.ScalarAffineFunction(MOI.ScalarAffineTerm.(1.0, [X[1], X[end]]), 0.0))
     MOI.set(model, MOI.ObjectiveSense(), MOI.MinSense)
     if config.solve
+        @test MOI.get(model, MOI.TerminationStatus()) == MOI.OptimizeNotCalled
+        @test MOI.get(model, MOI.PrimalStatus()) == MOI.NoSolution
+        @test MOI.get(model, MOI.DualStatus()) == MOI.NoSolution
+
         MOI.optimize!(model)
 
         @test MOI.get(model, MOI.TerminationStatus()) == MOI.Success
@@ -1241,6 +1305,10 @@ function _psd1test(model::MOI.ModelLike, vecofvars::Bool, psdcone, config::TestC
     @test MOI.get(model, MOI.NumberOfConstraints{MOI.VectorOfVariables, MOI.SecondOrderCone}()) == 1
 
     if config.solve
+        @test MOI.get(model, MOI.TerminationStatus()) == MOI.OptimizeNotCalled
+        @test MOI.get(model, MOI.PrimalStatus()) == MOI.NoSolution
+        @test MOI.get(model, MOI.DualStatus()) == MOI.NoSolution
+
         MOI.optimize!(model)
 
         @test MOI.get(model, MOI.TerminationStatus()) == MOI.Success
@@ -1320,6 +1388,10 @@ function psdt2test(model::MOI.ModelLike, config::TestConfig)
     MOI.set(model, MOI.ObjectiveFunction{MOI.ScalarAffineFunction{Float64}}(), MOI.ScalarAffineFunction([MOI.ScalarAffineTerm(1.0, x[7])], 0.0))
     MOI.set(model, MOI.ObjectiveSense(), MOI.MaxSense)
     if config.solve
+        @test MOI.get(model, MOI.TerminationStatus()) == MOI.OptimizeNotCalled
+        @test MOI.get(model, MOI.PrimalStatus()) == MOI.NoSolution
+        @test MOI.get(model, MOI.DualStatus()) == MOI.NoSolution
+
         MOI.optimize!(model)
 
         @test MOI.get(model, MOI.TerminationStatus()) == MOI.Success
@@ -1417,6 +1489,10 @@ function _det1test(model::MOI.ModelLike, config::TestConfig, vecofvars::Bool, de
     MOI.set(model, MOI.ObjectiveFunction{MOI.ScalarAffineFunction{Float64}}(), MOI.ScalarAffineFunction([MOI.ScalarAffineTerm(1.0, t)], 0.0))
     MOI.set(model, MOI.ObjectiveSense(), MOI.MaxSense)
     if config.solve
+        @test MOI.get(model, MOI.TerminationStatus()) == MOI.OptimizeNotCalled
+        @test MOI.get(model, MOI.PrimalStatus()) == MOI.NoSolution
+        @test MOI.get(model, MOI.DualStatus()) == MOI.NoSolution
+
         MOI.optimize!(model)
 
         @test MOI.get(model, MOI.TerminationStatus()) == MOI.Success

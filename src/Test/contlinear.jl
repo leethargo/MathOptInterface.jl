@@ -62,6 +62,10 @@ function linear1test(model::MOI.ModelLike, config::TestConfig)
     end
 
     if config.solve
+        @test MOI.get(model, MOI.TerminationStatus()) == MOI.OptimizeNotCalled
+        @test MOI.get(model, MOI.PrimalStatus()) == MOI.NoSolution
+        @test MOI.get(model, MOI.DualStatus()) == MOI.NoSolution
+
         MOI.optimize!(model)
 
         @test MOI.get(model, MOI.TerminationStatus()) == MOI.Success
@@ -383,6 +387,10 @@ function linear2test(model::MOI.ModelLike, config::TestConfig)
     @test MOI.get(model, MOI.ObjectiveSense()) == MOI.MinSense
 
     if config.solve
+        @test MOI.get(model, MOI.TerminationStatus()) == MOI.OptimizeNotCalled
+        @test MOI.get(model, MOI.PrimalStatus()) == MOI.NoSolution
+        @test MOI.get(model, MOI.DualStatus()) == MOI.NoSolution
+
         MOI.optimize!(model)
 
         @test MOI.get(model, MOI.TerminationStatus()) == MOI.Success
@@ -476,6 +484,10 @@ function linear3test(model::MOI.ModelLike, config::TestConfig)
     MOI.set(model, MOI.ObjectiveSense(), MOI.MaxSense)
 
     if config.solve
+        @test MOI.get(model, MOI.TerminationStatus()) == MOI.OptimizeNotCalled
+        @test MOI.get(model, MOI.PrimalStatus()) == MOI.NoSolution
+        @test MOI.get(model, MOI.DualStatus()) == MOI.NoSolution
+
         MOI.optimize!(model)
 
         @test MOI.get(model, MOI.TerminationStatus()) == MOI.Success
@@ -517,6 +529,10 @@ function linear4test(model::MOI.ModelLike, config::TestConfig)
     c2 = MOI.add_constraint(model, MOI.SingleVariable(y), MOI.LessThan(0.0))
 
     if config.solve
+        @test MOI.get(model, MOI.TerminationStatus()) == MOI.OptimizeNotCalled
+        @test MOI.get(model, MOI.PrimalStatus()) == MOI.NoSolution
+        @test MOI.get(model, MOI.DualStatus()) == MOI.NoSolution
+
         MOI.optimize!(model)
 
         @test MOI.get(model, MOI.TerminationStatus()) == MOI.Success
@@ -608,6 +624,10 @@ function linear5test(model::MOI.ModelLike, config::TestConfig)
     MOI.set(model, MOI.ObjectiveSense(), MOI.MaxSense)
 
     if config.solve
+        @test MOI.get(model, MOI.TerminationStatus()) == MOI.OptimizeNotCalled
+        @test MOI.get(model, MOI.PrimalStatus()) == MOI.NoSolution
+        @test MOI.get(model, MOI.DualStatus()) == MOI.NoSolution
+
         MOI.optimize!(model)
 
         @test MOI.get(model, MOI.TerminationStatus()) == MOI.Success
@@ -721,6 +741,10 @@ function linear6test(model::MOI.ModelLike, config::TestConfig)
     c2 = MOI.add_constraint(model, MOI.ScalarAffineFunction([MOI.ScalarAffineTerm(1.0, y)], 0.0), MOI.LessThan(0.0))
 
     if config.solve
+        @test MOI.get(model, MOI.TerminationStatus()) == MOI.OptimizeNotCalled
+        @test MOI.get(model, MOI.PrimalStatus()) == MOI.NoSolution
+        @test MOI.get(model, MOI.DualStatus()) == MOI.NoSolution
+
         MOI.optimize!(model)
 
         @test MOI.get(model, MOI.TerminationStatus()) == MOI.Success
@@ -787,6 +811,10 @@ function linear7test(model::MOI.ModelLike, config::TestConfig)
     c2 = MOI.add_constraint(model, MOI.VectorAffineFunction([MOI.VectorAffineTerm(1, MOI.ScalarAffineTerm(1.0, y))], [0.0]), MOI.Nonpositives(1))
 
     if config.solve
+        @test MOI.get(model, MOI.TerminationStatus()) == MOI.OptimizeNotCalled
+        @test MOI.get(model, MOI.PrimalStatus()) == MOI.NoSolution
+        @test MOI.get(model, MOI.DualStatus()) == MOI.NoSolution
+
         MOI.optimize!(model)
 
         @test MOI.get(model, MOI.TerminationStatus()) == MOI.Success
@@ -866,6 +894,10 @@ function linear8atest(model::MOI.ModelLike, config::TestConfig)
     MOI.set(model, MOI.ObjectiveSense(), MOI.MinSense)
 
     if config.solve
+        @test MOI.get(model, MOI.TerminationStatus()) == MOI.OptimizeNotCalled
+        @test MOI.get(model, MOI.PrimalStatus()) == MOI.NoSolution
+        @test MOI.get(model, MOI.DualStatus()) == MOI.NoSolution
+
         MOI.optimize!(model)
 
         if config.infeas_certificates
@@ -917,6 +949,10 @@ function linear8btest(model::MOI.ModelLike, config::TestConfig)
     MOI.set(model, MOI.ObjectiveSense(), MOI.MinSense)
 
     if config.solve
+        @test MOI.get(model, MOI.TerminationStatus()) == MOI.OptimizeNotCalled
+        @test MOI.get(model, MOI.PrimalStatus()) == MOI.NoSolution
+        @test MOI.get(model, MOI.DualStatus()) == MOI.NoSolution
+
         MOI.optimize!(model)
 
         if config.infeas_certificates
@@ -959,6 +995,10 @@ function linear8ctest(model::MOI.ModelLike, config::TestConfig)
     MOI.set(model, MOI.ObjectiveSense(), MOI.MinSense)
 
     if config.solve
+        @test MOI.get(model, MOI.TerminationStatus()) == MOI.OptimizeNotCalled
+        @test MOI.get(model, MOI.PrimalStatus()) == MOI.NoSolution
+        @test MOI.get(model, MOI.DualStatus()) == MOI.NoSolution
+
         MOI.optimize!(model)
 
         if config.infeas_certificates
@@ -1031,6 +1071,10 @@ function linear9test(model::MOI.ModelLike, config::TestConfig)
     MOI.set(model, MOI.ObjectiveSense(), MOI.MaxSense)
 
     if config.solve
+        @test MOI.get(model, MOI.TerminationStatus()) == MOI.OptimizeNotCalled
+        @test MOI.get(model, MOI.PrimalStatus()) == MOI.NoSolution
+        @test MOI.get(model, MOI.DualStatus()) == MOI.NoSolution
+
         MOI.optimize!(model)
 
         @test MOI.get(model, MOI.TerminationStatus()) == MOI.Success
@@ -1073,6 +1117,10 @@ function linear10test(model::MOI.ModelLike, config::TestConfig)
     MOI.set(model, MOI.ObjectiveSense(), MOI.MaxSense)
 
     if config.solve
+        @test MOI.get(model, MOI.TerminationStatus()) == MOI.OptimizeNotCalled
+        @test MOI.get(model, MOI.PrimalStatus()) == MOI.NoSolution
+        @test MOI.get(model, MOI.DualStatus()) == MOI.NoSolution
+
         MOI.optimize!(model)
 
         @test MOI.get(model, MOI.TerminationStatus()) == MOI.Success
@@ -1159,6 +1207,10 @@ function linear11test(model::MOI.ModelLike, config::TestConfig)
     MOI.set(model, MOI.ObjectiveSense(), MOI.MinSense)
 
     if config.solve
+        @test MOI.get(model, MOI.TerminationStatus()) == MOI.OptimizeNotCalled
+        @test MOI.get(model, MOI.PrimalStatus()) == MOI.NoSolution
+        @test MOI.get(model, MOI.DualStatus()) == MOI.NoSolution
+
         MOI.optimize!(model)
 
         @test MOI.get(model, MOI.TerminationStatus()) == MOI.Success
@@ -1209,6 +1261,10 @@ function linear12test(model::MOI.ModelLike, config::TestConfig)
     MOI.set(model, MOI.ObjectiveSense(), MOI.MinSense)
 
     if config.solve
+        @test MOI.get(model, MOI.TerminationStatus()) == MOI.OptimizeNotCalled
+        @test MOI.get(model, MOI.PrimalStatus()) == MOI.NoSolution
+        @test MOI.get(model, MOI.DualStatus()) == MOI.NoSolution
+
         MOI.optimize!(model)
 
         if config.infeas_certificates
@@ -1256,6 +1312,10 @@ function linear13test(model::MOI.ModelLike, config::TestConfig)
     @test MOI.get(model, MOI.ObjectiveSense()) == MOI.FeasibilitySense
 
     if config.solve
+        @test MOI.get(model, MOI.TerminationStatus()) == MOI.OptimizeNotCalled
+        @test MOI.get(model, MOI.PrimalStatus()) == MOI.NoSolution
+        @test MOI.get(model, MOI.DualStatus()) == MOI.NoSolution
+
         MOI.optimize!(model)
         @test MOI.get(model, MOI.ResultCount()) > 0
 
@@ -1312,6 +1372,10 @@ function linear14test(model::MOI.ModelLike, config::TestConfig)
     MOI.set(model, MOI.ObjectiveSense(), MOI.MaxSense)
 
     if config.solve
+        @test MOI.get(model, MOI.TerminationStatus()) == MOI.OptimizeNotCalled
+        @test MOI.get(model, MOI.PrimalStatus()) == MOI.NoSolution
+        @test MOI.get(model, MOI.DualStatus()) == MOI.NoSolution
+
         MOI.optimize!(model)
 
         @test MOI.get(model, MOI.TerminationStatus()) == MOI.Success
@@ -1400,6 +1464,10 @@ function linear15test(model::MOI.ModelLike, config::TestConfig)
     MOI.set(model, MOI.ObjectiveSense(), MOI.MinSense)
 
     if config.solve
+        @test MOI.get(model, MOI.TerminationStatus()) == MOI.OptimizeNotCalled
+        @test MOI.get(model, MOI.PrimalStatus()) == MOI.NoSolution
+        @test MOI.get(model, MOI.DualStatus()) == MOI.NoSolution
+
         MOI.optimize!(model)
 
         @test MOI.get(model, MOI.TerminationStatus()) == MOI.Success
